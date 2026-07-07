@@ -1,40 +1,31 @@
 function highlight(table) {
-let td = table.querySelectorAll('td')
-let tr = table.querySelectorAll('tr')
-  for (let i = 7, j = 1; i < 14, j < 6; i+=4, j++){
-    if (td[i].dataset.available === 'true'){
-      tr[j].className = 'available';
-      if (td[i-1].innerHTML === 'm'){
-        tr[j].classList.add('male');
-      }
-      if (td[i-1].innerHTML === 'f'){
-        tr[j].classList.add('female');
-      }
-      if (td[i-2].innerHTML < 18){
-        tr[j].style = "text-decoration: line-through"
-      }
+const rows = table.querySelectorAll('tbody tr')
+  for (tr of rows){
+    const age = tr.children[1];
+    const gendertd = tr.children[2];
+    const status = tr.children[3];
+    available = status.dataset.available;
+    gender = gendertd.textContent;
+    ageNum = Number(age.textContent);
+
+    if (available === 'true'){
+      tr.classList.add('available');
     }
-    else if (td[i].dataset.available === 'false'){
-      tr[j].className = 'unavailable';
-      if (td[i-1].innerHTML === 'm'){
-        tr[j].classList.add('male');
-      }
-      if (td[i-1].innerHTML === 'f'){
-        tr[j].classList.add('female');
-      }
-      if (td[i-2].innerHTML < 18){
-        tr[j].style = textDecoration = line-through
-      }
+    else if (available === 'false'){
+      tr.classList.add('unavailable');
     }
-    else if (td[i].dataset.available == null){
-      tr[j].hidden = true;
-            if (td[i-1].innerHTML === 'm'){
-        tr[j].classList.add('male');
-      }
-      if (td[i-1].innerHTML === 'f'){
-        tr[j].classList.add('female');
-      }
+    else {
+      tr.hidden = true;
     }
+    if (gender === 'm'){
+        tr.classList.add('male');
+      }
+    if (gender === 'f'){
+        tr.classList.add('female');
+      }
+    if (ageNum < 18){
+        tr.style.textDecoration = "line-through"
+      }
   }
 return table
 }
